@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/next_button"
+    tools:context=".cities.CitiesActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/citiesList"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/item_city"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+</LinearLayout>

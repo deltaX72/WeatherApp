@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">WeatherApp</string>
+
+    <string name="cityPattern">Tomsk</string>
+    <string name="dataTimePattern">Current date: 2077–01–01</string>
+    <string name="next"><![CDATA[>>]]></string>
+    <string name="no_image">No image</string>
+
+    <string name="city_and_date_pattern">Tomsk: 2077–01–01</string>
+    <string name="desc_pattern">The weather is good</string>
+    <string name="advice_pattern">It\'s time to go walking</string>
+    <string name="time_and_temperature_pattern">00:00, -273.15&#xb0;C</string>
+
+    <string name="city_format">%1$s</string>
+    <string name="dataTime_format">Date: %1$s</string>
+
+    <string name="city_and_date_format">%1$s: %2$s</string>
+    <string name="time_and_temperature_format">%1$s, %2$s&#xb0;C</string>
+    <string name="weather_desc_and_advice_format">%1$s. %2$s</string>
+
+</resources>
