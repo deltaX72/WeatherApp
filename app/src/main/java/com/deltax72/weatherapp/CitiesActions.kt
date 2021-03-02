@@ -2,41 +2,15 @@ package com.deltax72.weatherapp
 
 import com.deltax72.weatherapp.cities.City
 import com.deltax72.weatherapp.cities.Date
+import com.deltax72.weatherapp.cities.Time
 import com.deltax72.weatherapp.cities.Weather
 import java.lang.RuntimeException
 
 class CitiesActions {
     private val cities = mutableListOf(
-            City("Tomsk", Date(2077, 1, 1), mapOf(
-                Pair(0, Pair(-10.0, Weather.WeatherType.SNOW)),
-                Pair(3, Pair(-14.0, Weather.WeatherType.WIND)),
-                Pair(6, Pair(-15.0, Weather.WeatherType.SNOW)),
-                Pair(9, Pair(-11.0, Weather.WeatherType.SNOW)),
-                Pair(12, Pair(-10.0, Weather.WeatherType.CLOUDY)),
-                Pair(15, Pair(-6.0, Weather.WeatherType.SUN)),
-                Pair(18, Pair(-8.0, Weather.WeatherType.CLOUDY)),
-                Pair(21, Pair(-12.0, Weather.WeatherType.SNOW))
-            )),
-            City("Moscow", Date(2077, 1, 1), mapOf(
-                Pair(0, Pair(-270.0, Weather.WeatherType.SNOW)),
-                Pair(3, Pair(-10.0, Weather.WeatherType.WIND)),
-                Pair(6, Pair(-10.0, Weather.WeatherType.SNOW)),
-                Pair(9, Pair(-10.0, Weather.WeatherType.SNOW)),
-                Pair(12, Pair(-10.0, Weather.WeatherType.CLOUDY)),
-                Pair(15, Pair(-10.0, Weather.WeatherType.SUN)),
-                Pair(18, Pair(-10.0, Weather.WeatherType.CLOUDY)),
-                Pair(21, Pair(-10.0, Weather.WeatherType.SNOW))
-            )),
-            City("Novosibirsk", Date(2077, 1, 1), mapOf(
-                Pair(0, Pair(-35.0, Weather.WeatherType.SNOW)),
-                Pair(3, Pair(-10.0, Weather.WeatherType.WIND)),
-                Pair(6, Pair(-10.0, Weather.WeatherType.SNOW)),
-                Pair(9, Pair(-10.0, Weather.WeatherType.SNOW)),
-                Pair(12, Pair(-10.0, Weather.WeatherType.CLOUDY)),
-                Pair(15, Pair(-10.0, Weather.WeatherType.SUN)),
-                Pair(18, Pair(-10.0, Weather.WeatherType.CLOUDY)),
-                Pair(21, Pair(-10.0, Weather.WeatherType.SNOW))
-            ))
+            generateRandomCity("Tomsk", Time(0, 0), Time(6, 0)),
+            generateRandomCity("Moscow", Time(0, 0), Time(6, 0)),
+            generateRandomCity("Novosibirsk", Time(0, 0), Time(6, 0))
     )
 
     fun getCities(): List<City> = this.cities
@@ -49,5 +23,19 @@ class CitiesActions {
         if (index >= 0) {
             this.cities[index] = city
         }
+    }
+
+    private fun generateRandomCity(name: String, timeFrom: Time, timeTo: Time): City {
+        val city = City(name)
+        val minutes = (timeTo.hour - timeFrom.hour) * 60 + (timeTo.minute - timeFrom.minute)
+        for (i in 0..minutes) {
+            city[Time(i / 60, i % 60)] = Pair(- (Math.random() * 20).toInt().toDouble(), Weather.getRandomType())
+        }
+//        for (h in timeFrom.hour until timeTo.hour) {
+//            for (m in timeFrom.minute until timeTo.minute + 60) {
+//                city[Time(h, m)] = Pair(- (Math.random() * 20).toInt().toDouble(), Weather.getRandomType())
+//            }
+//        }
+        return city
     }
 }

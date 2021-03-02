@@ -10,40 +10,65 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deltax72.weatherapp.CitiesActions
 import com.deltax72.weatherapp.R
 import com.deltax72.weatherapp.WeatherApplication
+import com.deltax72.weatherapp.cities.City
+import com.deltax72.weatherapp.cities.Time
 import com.deltax72.weatherapp.cities.Weather
 
-class WeatherActivity : AppCompatActivity() {
+class WeatherActivity : AppCompatActivity(), WeatherView {
     private lateinit var cityAndDate: TextView
 
     private lateinit var citiesActions: CitiesActions
     private lateinit var weatherList: RecyclerView
+
+    lateinit var map: MutableMap<Time, Pair<Double, Weather.WeatherType>>
+
     private val adapter = WeatherAdapter()
 
-    private lateinit var map: Map<Int, Pair<Double, Weather.WeatherType>>
+    private var isTriggered = false
+
+    private val presenter by lazy {
+        WeatherPresenter(
+                (application as WeatherApplication).citiesActions,
+                intent.getLongExtra(EXTRA_ID, 0)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.citiesActions = (application as WeatherApplication).citiesActions
         setContentView(R.layout.activity_weather)
 
-        val id = intent.getLongExtra(EXTRA_ID, 0)
-        val city = this.citiesActions.getCity(id)
+        this.cityAndDate = findViewById(R.id.city_and_date)
+        this.weatherList = findViewById(R.id.weatherList)
+        this.weatherList.adapter = this.adapter
 
-        if (city != null) {
-            this.cityAndDate = findViewById(R.id.city_and_date)
-            this.weatherList = findViewById(R.id.weatherList)
-            this.weatherList.adapter = this.adapter
-            this.map = city.temperatures
-
-            this.cityAndDate.text = getString(R.string.city_and_date_format, city.name, city.date)
-        } else {
-            finish()
-        }
+        this.presenter.attachView(this)
     }
 
     override fun onResume() {
         super.onResume()
+        this.isTriggered = false
+        this.presenter.onViewAttached()
         this.adapter.city.temperatures = this.map
+    }
+
+    override fun closeScreen() {
+        finish()
+    }
+
+    override fun bindCity(city: City) {
+        val map: MutableMap<Time, Pair<Double, Weather.WeatherType>> = mapOf<Time, Pair<Double, Weather.WeatherType>>().toMutableMap()
+        if (!this.isTriggered) {
+            for (i in city.temperatures.keys) {
+                if (i.minute % 60 == 0) {
+                    map[Time(i.hour, i.minute)] = city.temperatures[Time(i.hour, i.minute)] ?: throw RuntimeException("")
+                }
+            }
+            this.map = map ?: throw RuntimeException("List is empty!")
+            this.isTriggered = true
+        } else {
+            this.map = city.temperatures
+        }
+        this.cityAndDate.text = getString(R.string.city_and_date_format, city.name)
     }
 
     companion object {

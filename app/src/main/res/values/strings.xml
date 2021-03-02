@@ -1,21 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">WeatherApp</string>
 
-    <string name="cityPattern">Tomsk</string>
-    <string name="dataTimePattern">Current date: 2077–01–01</string>
+    <string name="city_pattern">Tomsk</string>
+    <string name="data_time_pattern">00:00</string>
     <string name="next"><![CDATA[>>]]></string>
     <string name="no_image">No image</string>
 
-    <string name="city_and_date_pattern">Tomsk: 2077–01–01</string>
+    <string name="city_and_date_pattern">Tomsk</string>
     <string name="desc_pattern">The weather is good</string>
     <string name="advice_pattern">It\'s time to go walking</string>
     <string name="time_and_temperature_pattern">00:00, -273.15&#xb0;C</string>
 
-    <string name="city_format">%1$s</string>
-    <string name="dataTime_format">Date: %1$s</string>
+    <string name="city_name_label">Name</string>
 
-    <string name="city_and_date_format">%1$s: %2$s</string>
+    <string name="city_format">%1$s</string>
+    <string name="data_time_format">%1$s</string>
+
+    <string name="city_and_date_format">%1$s</string>
     <string name="time_and_temperature_format">%1$s, %2$s&#xb0;C</string>
     <string name="weather_desc_and_advice_format">%1$s. %2$s</string>
+    <string name="enter_city_name_hint">Enter the name of a city</string>
+    <string name="date_label">Date:</string>
+    <string name="enter_date_hint" />
+    <string name="find_button">Find!</string>
+
 
 </resources>

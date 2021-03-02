@@ -5,8 +5,7 @@ import kotlin.collections.HashMap
 
 class City(
     val name: String,
-    val date: Date,
-    var temperatures: Map<Int, Pair<Double, Weather.WeatherType>>
+    var temperatures: MutableMap<Time, Pair<Double, Weather.WeatherType>>
 ) {
     var id: Long
         private set
@@ -18,28 +17,41 @@ class City(
         this.id = ++totalCities
     }
 
-    constructor(): this(name = "", date = Date(), temperatures = emptyMap())
+    constructor(name: String): this(name, mapOf<Time, Pair<Double, Weather.WeatherType>>().toMutableMap())
+    constructor(): this(name = "")
 
-    fun getTemperature(hour: Int): Double {
+    fun getTemperature(time: Time): Double {
 //        val city = this.cities.firstOrNull { it.name == name && it.date == date }
-        return this.temperatures[hour]?.first ?: throw RuntimeException("Value doesn't exist!")
+        return this.temperatures[time]?.first ?: throw RuntimeException("Value doesn't exist!")
     }
-    fun getWeatherType(hour: Int): Weather.WeatherType {
-        return this.temperatures[hour]?.second ?: throw RuntimeException("Value doesn't exist!")
+    fun getWeatherType(time: Time): Weather.WeatherType {
+//        println("\n\n\n\n\n\n\n\n\n\n\n\n${this.temperatures[Time(hour, minute)]}\n\n\n\n\n\n\n\n\n\n")
+        return this.temperatures[time]?.second ?: throw RuntimeException("Value doesn't exist!")
     }
-    fun getTime(hour: Int) = "${if (hour in 0..9) "0$hour" else "$hour"}:00"
+//    fun getTime(hour: Int) = "${if (hour in 0..9) "0$hour" else "$hour"}:00"
+
+    operator fun set(time: Time, map: Pair<Double, Weather.WeatherType>) {
+        this.temperatures?.set(time, map)
+    }
+//    operator fun get(time: Time): {
+////        return
+//    }
 }
 
-class Date(
-    private val year: Int,
-    private val month: Int,
-    private val day: Int
-) {
+class Date(private val year: Int, private val month: Int, private val day: Int) {
     override fun toString(): String {
         return "$year-$month-$day"
     }
 
     constructor(): this(0, 0, 0)
+}
+
+class Time(val hour: Int, val minute: Int) {
+    constructor(): this(0, 0)
+
+    override fun toString(): String {
+        return "${if (hour < 10) "0$hour" else "$hour"}:${if (minute < 10) "0$minute" else "$minute"}"
+    }
 }
 
 class Weather {
@@ -86,6 +98,18 @@ class Weather {
                 WeatherType.FROST -> "Today it is biting frost"
                 WeatherType.MAINLY_CLOUD -> "There are many thick clouds in the sky"
                 WeatherType.SNOW -> "It's snowy now"
+            }
+        }
+
+        fun getRandomType(): WeatherType {
+            return when((Math.random() * WeatherType.values().size).toInt()) {
+                0 -> WeatherType.SUN
+                1 -> WeatherType.WIND
+                2 -> WeatherType.FROST
+                3 -> WeatherType.MAINLY_CLOUD
+                4 -> WeatherType.SNOW
+                5 -> WeatherType.CLOUDY
+                else -> throw RuntimeException("")
             }
         }
     }

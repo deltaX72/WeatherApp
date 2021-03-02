@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deltax72.weatherapp.R
 import com.deltax72.weatherapp.cities.City
 import com.deltax72.weatherapp.cities.CityHolder
+import com.deltax72.weatherapp.cities.Time
 import com.deltax72.weatherapp.cities.Weather
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherHolder>() {
@@ -23,15 +24,17 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return this.city.temperatures.count()
+        return this.city.temperatures?.entries?.count()!!
     }
 
     override fun onBindViewHolder(holder: WeatherHolder, position: Int) {
         var index = 0
-        for (i in city.temperatures) {
+        for (i in city.temperatures!!) {
             if (index == position) {
-                holder.bind(i)
-                break
+//                if (i.key.minute % 60 == 0) {
+                    holder.bind(i)
+                    break
+//                }
             }
             index++
         }
@@ -43,8 +46,8 @@ class WeatherHolder(itemView: View, private val city: City): RecyclerView.ViewHo
     private val description: TextView = this.itemView.findViewById(R.id.description)
     private val weatherIcon: ImageView = this.itemView.findViewById(R.id.weather_icon)
 
-    fun bind(period: Map.Entry<Int, Pair<Double, Weather.WeatherType>>) {
-        this.timeAndTemperature.text = this.itemView.context.getString(R.string.time_and_temperature_format, city.getTime(period.key), city.getTemperature(period.key).toString())
+    fun bind(period: Map.Entry<Time, Pair<Double, Weather.WeatherType>>) {
+        this.timeAndTemperature.text = this.itemView.context.getString(R.string.time_and_temperature_format, period.key, period.value.first.toString())
         this.description.text = this.itemView.context.getString(
             R.string.weather_desc_and_advice_format,
             Weather.getDescription(city.getWeatherType(period.key)),

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.deltax72.weatherapp.R
+import java.util.*
 
 class CitiesAdapter(private val onClick: (City) -> Unit): RecyclerView.Adapter<CityHolder>() {
     var cities: List<City> = emptyList()
@@ -25,7 +26,6 @@ class CitiesAdapter(private val onClick: (City) -> Unit): RecyclerView.Adapter<C
     override fun getItemCount(): Int {
         return this.cities.count()
     }
-
 }
 
 class CityHolder(itemView: View, private val onClick: (City) -> Unit): RecyclerView.ViewHolder(itemView) {
@@ -33,8 +33,11 @@ class CityHolder(itemView: View, private val onClick: (City) -> Unit): RecyclerV
     private val dataTime: TextView = this.itemView.findViewById(R.id.dataTime)
 
     fun bind(city: City) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
         this.cityName.text = this.itemView.context.getString(R.string.city_format, city.name)
-        this.dataTime.text = this.itemView.context.getString(R.string.dataTime_format, city.date)
+        this.dataTime.text = this.itemView.context.getString(R.string.data_time_format, Time(hour, minute))
         this.itemView.setOnClickListener { this.onClick(city) }
     }
 }
