@@ -1,11 +1,12 @@
 package com.deltax72.weatherapp.cities
 
+import com.deltax72.weatherapp.R
 import java.lang.RuntimeException
 import kotlin.collections.HashMap
 
 class City(
-    val name: String,
-    var temperatures: MutableMap<Time, Pair<Double, Weather.WeatherType>>
+    val name: String = "",
+    var temperatures: MutableMap<Time, Pair<Double, Weather.WeatherType>> = mapOf<Time, Pair<Double, Weather.WeatherType>>().toMutableMap()
 ) {
     var id: Long
         private set
@@ -17,38 +18,25 @@ class City(
         this.id = ++totalCities
     }
 
-    constructor(name: String): this(name, mapOf<Time, Pair<Double, Weather.WeatherType>>().toMutableMap())
-    constructor(): this(name = "")
-
     fun getTemperature(time: Time): Double {
-//        val city = this.cities.firstOrNull { it.name == name && it.date == date }
         return this.temperatures[time]?.first ?: throw RuntimeException("Value doesn't exist!")
     }
     fun getWeatherType(time: Time): Weather.WeatherType {
-//        println("\n\n\n\n\n\n\n\n\n\n\n\n${this.temperatures[Time(hour, minute)]}\n\n\n\n\n\n\n\n\n\n")
         return this.temperatures[time]?.second ?: throw RuntimeException("Value doesn't exist!")
     }
-//    fun getTime(hour: Int) = "${if (hour in 0..9) "0$hour" else "$hour"}:00"
 
     operator fun set(time: Time, map: Pair<Double, Weather.WeatherType>) {
-        this.temperatures?.set(time, map)
+        this.temperatures[time] = map
     }
-//    operator fun get(time: Time): {
-////        return
-//    }
 }
 
-class Date(private val year: Int, private val month: Int, private val day: Int) {
+class Date(private val year: Int = 0, private val month: Int = 0, private val day: Int = 0) {
     override fun toString(): String {
         return "$year-$month-$day"
     }
-
-    constructor(): this(0, 0, 0)
 }
 
-class Time(val hour: Int, val minute: Int) {
-    constructor(): this(0, 0)
-
+class Time(val hour: Int = 0, val minute: Int = 0) {
     override fun toString(): String {
         return "${if (hour < 10) "0$hour" else "$hour"}:${if (minute < 10) "0$minute" else "$minute"}"
     }
@@ -65,21 +53,6 @@ class Weather {
     }
 
     companion object {
-//        val adviceList = arrayListOf(
-//            "You should go to walk today",
-//            "It's cold but you can still walk",
-//            "You should wear warm clothes",
-//            "We should not to go work today",
-//            "You should buy your own nuclear reactor"
-//        )
-//        val descriptionList = arrayListOf(
-//            "Bright sun",
-//            "The sky is partly in the clouds",
-//            "It's windy",
-//            "Today it is biting frost",
-//            "There are many thick clouds in the sky",
-//            "It's snowy now"
-//        )
         fun getAdvice(temperature: Double): String {
             return when(temperature) {
                 in -5.0..0.0 -> "You should go to walk today"
@@ -98,6 +71,16 @@ class Weather {
                 WeatherType.FROST -> "Today it is biting frost"
                 WeatherType.MAINLY_CLOUD -> "There are many thick clouds in the sky"
                 WeatherType.SNOW -> "It's snowy now"
+            }
+        }
+        fun getImageResourceByWeatherType(type: WeatherType): Int {
+            return when (type) {
+                WeatherType.SUN -> R.drawable.sun
+                WeatherType.CLOUDY -> R.drawable.partly_cloud
+                WeatherType.SNOW -> R.drawable.snow
+                WeatherType.MAINLY_CLOUD -> R.drawable.cloud
+                WeatherType.FROST -> R.drawable.frost
+                WeatherType.WIND -> R.drawable.windy
             }
         }
 

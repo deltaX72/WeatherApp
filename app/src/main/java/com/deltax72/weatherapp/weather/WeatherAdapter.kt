@@ -24,17 +24,15 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return this.city.temperatures?.entries?.count()!!
+        return this.city.temperatures.entries.count()
     }
 
     override fun onBindViewHolder(holder: WeatherHolder, position: Int) {
         var index = 0
-        for (i in city.temperatures!!) {
+        for (i in city.temperatures) {
             if (index == position) {
-//                if (i.key.minute % 60 == 0) {
-                    holder.bind(i)
-                    break
-//                }
+                holder.bind(i)
+                break
             }
             index++
         }
@@ -53,13 +51,14 @@ class WeatherHolder(itemView: View, private val city: City): RecyclerView.ViewHo
             Weather.getDescription(city.getWeatherType(period.key)),
             Weather.getAdvice(city.getTemperature(period.key))
         )
-        when (city.getWeatherType(period.key)) {
-            Weather.WeatherType.SUN -> this.weatherIcon.setImageResource(R.drawable.sun)
-            Weather.WeatherType.CLOUDY -> this.weatherIcon.setImageResource(R.drawable.partly_cloud)
-            Weather.WeatherType.SNOW -> this.weatherIcon.setImageResource(R.drawable.snow)
-            Weather.WeatherType.WIND -> this.weatherIcon.setImageResource(R.drawable.windy)
-            Weather.WeatherType.MAINLY_CLOUD -> this.weatherIcon.setImageResource(R.drawable.cloud)
-            Weather.WeatherType.FROST -> this.weatherIcon.setImageResource(R.drawable.frost)
-        }
+        this.weatherIcon.setImageResource(Weather.getImageResourceByWeatherType(city.getWeatherType(period.key)))
+//        when (city.getWeatherType(period.key)) {
+//            Weather.WeatherType.SUN -> this.weatherIcon.setImageResource(R.drawable.sun)
+//            Weather.WeatherType.CLOUDY -> this.weatherIcon.setImageResource(R.drawable.partly_cloud)
+//            Weather.WeatherType.SNOW -> this.weatherIcon.setImageResource(R.drawable.snow)
+//            Weather.WeatherType.WIND -> this.weatherIcon.setImageResource(R.drawable.windy)
+//            Weather.WeatherType.MAINLY_CLOUD -> this.weatherIcon.setImageResource(R.drawable.cloud)
+//            Weather.WeatherType.FROST -> this.weatherIcon.setImageResource(R.drawable.frost)
+//        }
     }
 }

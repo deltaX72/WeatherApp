@@ -1,11 +1,11 @@
 package com.deltax72.weatherapp.cities
 
 import com.deltax72.weatherapp.BasePresenter
-import com.deltax72.weatherapp.CitiesActions
+import com.deltax72.weatherapp.CitiesRepository
 
-class CityPresenter(private val citiesActions: CitiesActions): BasePresenter<CitiesListView>() {
+class CityPresenter(private val citiesRepository: CitiesRepository): BasePresenter<CitiesListView>() {
     fun onViewResumed() {
-        val cityList = citiesActions.getCities()
+        val cityList = citiesRepository.getCities()
         this.view?.bindCityList(cityList)
     }
 

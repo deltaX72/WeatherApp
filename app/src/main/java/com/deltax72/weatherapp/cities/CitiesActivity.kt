@@ -1,14 +1,11 @@
 package com.deltax72.weatherapp.cities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.deltax72.weatherapp.CitiesActions
 import com.deltax72.weatherapp.R
 import com.deltax72.weatherapp.WeatherApplication
-import com.deltax72.weatherapp.newcity.NewCityActivity
 import com.deltax72.weatherapp.weather.WeatherActivity
 
 class CitiesActivity : AppCompatActivity(), CitiesListView {
@@ -16,7 +13,7 @@ class CitiesActivity : AppCompatActivity(), CitiesListView {
     private lateinit var findButton: Button
 
     private val presenter by lazy {
-        CityPresenter((application as WeatherApplication).citiesActions)
+        CityPresenter((application as WeatherApplication).citiesRepository)
     }
 
     private val adapter = CitiesAdapter {
@@ -29,11 +26,6 @@ class CitiesActivity : AppCompatActivity(), CitiesListView {
         this.presenter.attachView(this)
 
         this.citiesList = findViewById(R.id.citiesList)
-//        this.findButton = findViewById(R.id.addButton)
-//        this.findButton.setOnClickListener {
-//            val intent = Intent(this, NewCityActivity::class.java)
-//            startActivity(intent)
-//        }
         this.citiesList.adapter = this.adapter
     }
 
