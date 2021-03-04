@@ -10,15 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherApp">
-        <activity android:name="com.deltax72.weatherapp.presentation.cities.CitiesActivity">
+        <activity android:name="com.deltax72.weatherapp.presentation.activities.CitiesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.deltax72.weatherapp.presentation.weather.WeatherActivity" />
-        <activity android:name="com.deltax72.weatherapp.presentation.newcity.NewCityActivity" />
+        <activity android:name="com.deltax72.weatherapp.presentation.activities.WeatherActivity" />
+        <activity android:name="com.deltax72.weatherapp.presentation.activities.NewCityActivity" />
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/next_button"
-    tools:context=".presentation.cities.CitiesActivity">
+    tools:context=".presentation.activities.CitiesActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/citiesList"

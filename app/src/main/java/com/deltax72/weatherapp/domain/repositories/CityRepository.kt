@@ -1,8 +1,10 @@
-package com.deltax72.weatherapp.data
+package com.deltax72.weatherapp.domain.repositories
 
 import com.deltax72.weatherapp.domain.models.City
+import com.deltax72.weatherapp.domain.models.Time
+import com.deltax72.weatherapp.domain.models.Weather
 
-interface CityDataSource {
+interface CityRepository {
     fun getCities(): List<City>
 
     fun getCity(name: String): City?

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.newcity.NewCityActivity">
+    tools:context=".presentation.activities.NewCityActivity">
 
     <TextView
         android:id="@+id/cityText"
