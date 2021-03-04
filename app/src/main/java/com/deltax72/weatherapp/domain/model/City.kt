@@ -1,22 +1,13 @@
-package com.deltax72.weatherapp.cities
+package com.deltax72.weatherapp.domain.model
 
 import com.deltax72.weatherapp.R
 import java.lang.RuntimeException
-import kotlin.collections.HashMap
 
 class City(
+    val id: Long = -1,
     val name: String = "",
     var temperatures: MutableMap<Time, Pair<Double, Weather.WeatherType>> = mapOf<Time, Pair<Double, Weather.WeatherType>>().toMutableMap()
 ) {
-    var id: Long
-        private set
-
-    companion object {
-        var totalCities: Long = 0
-    }
-    init {
-        this.id = ++totalCities
-    }
 
     fun getTemperature(time: Time): Double {
         return this.temperatures[time]?.first ?: throw RuntimeException("Value doesn't exist!")

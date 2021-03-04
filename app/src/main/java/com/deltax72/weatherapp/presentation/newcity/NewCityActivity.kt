@@ -1,8 +1,7 @@
-package com.deltax72.weatherapp.newcity
+package com.deltax72.weatherapp.presentation.newcity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.deltax72.weatherapp.R
 
 class NewCityActivity : AppCompatActivity() {

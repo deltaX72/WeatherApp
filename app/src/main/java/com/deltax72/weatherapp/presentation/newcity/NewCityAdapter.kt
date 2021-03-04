@@ -1,4 +1,4 @@
-package com.deltax72.weatherapp.newcity
+package com.deltax72.weatherapp.presentation.newcity
 
 import android.view.View
 import android.view.ViewGroup

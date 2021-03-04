@@ -1,4 +1,4 @@
-package com.deltax72.weatherapp.weather
+package com.deltax72.weatherapp.presentation.weather
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.deltax72.weatherapp.R
-import com.deltax72.weatherapp.cities.City
-import com.deltax72.weatherapp.cities.CityHolder
-import com.deltax72.weatherapp.cities.Time
-import com.deltax72.weatherapp.cities.Weather
+import com.deltax72.weatherapp.domain.model.City
+import com.deltax72.weatherapp.domain.model.Time
+import com.deltax72.weatherapp.domain.model.Weather
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherHolder>() {
     var city = City()

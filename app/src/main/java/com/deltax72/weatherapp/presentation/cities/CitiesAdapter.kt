@@ -1,4 +1,4 @@
-package com.deltax72.weatherapp.cities
+package com.deltax72.weatherapp.presentation.cities
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.deltax72.weatherapp.R
+import com.deltax72.weatherapp.domain.model.City
+import com.deltax72.weatherapp.domain.model.Weather
 import java.util.*
 
 class CitiesAdapter(private val onClick: (City) -> Unit): RecyclerView.Adapter<CityHolder>() {
@@ -39,7 +41,6 @@ class CityHolder(itemView: View, private val onClick: (City) -> Unit): RecyclerV
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
-//        val time = Time(hour, minute)
         val time = city.temperatures.keys.toList()
             .first {
             it.hour == hour && it.minute == minute

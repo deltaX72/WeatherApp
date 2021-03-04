@@ -1,4 +1,4 @@
-package com.deltax72.weatherapp.weather
+package com.deltax72.weatherapp.presentation.weather
 
 import android.content.Context
 import android.content.Intent
@@ -6,28 +6,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.deltax72.weatherapp.CitiesRepository
+import com.deltax72.weatherapp.domain.repository.CityRepository
 import com.deltax72.weatherapp.R
 import com.deltax72.weatherapp.WeatherApplication
-import com.deltax72.weatherapp.cities.City
-import com.deltax72.weatherapp.cities.Time
-import com.deltax72.weatherapp.cities.Weather
+import com.deltax72.weatherapp.domain.model.City
+import com.deltax72.weatherapp.domain.model.Time
+import com.deltax72.weatherapp.domain.model.Weather
 
 class WeatherActivity : AppCompatActivity(), WeatherView {
     private lateinit var cityAndDate: TextView
 
-    private lateinit var citiesRepository: CitiesRepository
     private lateinit var weatherList: RecyclerView
 
     lateinit var map: MutableMap<Time, Pair<Double, Weather.WeatherType>>
 
-    private val adapter = WeatherAdapter()
+    val adapter = WeatherAdapter()
 
     private val presenter by lazy {
-        WeatherPresenter(
-                (application as WeatherApplication).citiesRepository,
-                intent.getLongExtra(EXTRA_ID, 0)
-        )
+        val id = intent.getLongExtra(EXTRA_ID, 0)
+        WeatherPresenterFactory.getWeatherPresenter(id)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.deltax72.weatherapp
+package com.deltax72.weatherapp.presentation
 
 open class BasePresenter<T: BaseView> {
     var view: T? = null

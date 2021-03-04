@@ -1,4 +1,4 @@
-package com.deltax72.weatherapp.cities
+package com.deltax72.weatherapp.presentation.cities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,14 +6,15 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.deltax72.weatherapp.R
 import com.deltax72.weatherapp.WeatherApplication
-import com.deltax72.weatherapp.weather.WeatherActivity
+import com.deltax72.weatherapp.domain.model.City
+import com.deltax72.weatherapp.presentation.weather.WeatherActivity
 
-class CitiesActivity : AppCompatActivity(), CitiesListView {
+class CitiesActivity : AppCompatActivity(), CitiesView {
     private lateinit var citiesList: RecyclerView
     private lateinit var findButton: Button
 
     private val presenter by lazy {
-        CityPresenter((application as WeatherApplication).citiesRepository)
+        CitiesPresenterFactory.getCitiesPresenter()
     }
 
     private val adapter = CitiesAdapter {
